@@ -1,0 +1,11 @@
+Source: snap4arduino
+Maintainer: snap4arduino
+Section: misc
+Priority: optional
+Standards-Version: 1.0.0
+Build-Depends: debhelper (>= 7.3.8)
+
+Package: snap4arduino
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Launches Snap4Arduino.

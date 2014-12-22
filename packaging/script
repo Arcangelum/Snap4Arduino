@@ -1,0 +1,78 @@
+#! /bin/bash
+
+echo "Installing debianization utilities"
+
+apt-get install build-essential devscripts lintian diffutils debhelper patch patchutils
+
+echo "Generating ..."
+
+#If the directory already exist, we will delete it before
+#doing the untar action again
+
+if [ -d snap4arduino-1.0 ]; then
+	echo "Removing existing folder with the same name."
+	rm -R snap4arduino-1.0
+fi
+
+#Untar the tarball
+
+if [ -f snap4arduino_1.0.orig.tar.gz ]; then
+	echo "Untar launcher tarball."
+	tar xf snap4arduino_1.0.orig.tar.gz
+
+else
+	echo "Launcher tarball not found, exiting ..."
+	exit 0;
+fi
+
+#Open directory
+
+cd snap4arduino-1.0
+
+#Create debian directory for debian packaging files
+
+mkdir debian
+
+dch --create -v 1.0-1 --package snap4arduino
+
+#Open debian directory
+
+cd debian
+
+#Copy debian files
+
+cp -r ../../control control
+cp -r ../../rules rules
+cp -r ../../compat compat
+
+mkdir source
+
+cp -r ../../format source/format
+cp -r ../../include-binaries source/include-binaries
+cp -r ../../snap4arduino.dirs snap4arduino.dirs
+
+cd ..
+
+cp -r ../../release/gnu/Snap4Arduino.tar.gz ../Snap4Arduino.tar.gz
+
+cd ..
+
+tar xf Snap4Arduino.tar.gz
+
+rm Snap4Arduino/nw
+
+cp -r snap4arduino-1.0/nw Snap4Arduino/nw
+
+cd snap4arduino-1.0
+
+rm ../Snap4Arduino.tar.gz
+
+debuild -ai386 -us -uc
+
+cd ..
+
+rm -R Snap4Arduino
+
+echo "Fin."
+
+

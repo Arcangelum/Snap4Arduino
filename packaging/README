@@ -1,0 +1,21 @@
+Esta versión de empaquetado funciona en ubuntu 32 bits
+y genera un paquete .deb para ubuntu 32 bits
+
+NO funciona en ubuntu 64 bits debido a problemas de
+compatibilidad de librerias. Tampoco funciona indicando
+la arquitectura en el debuild -ai386 porque busca librerias
+de 64 bits a pesar de indicar claramente que el empaquetado
+ha de realizarse en 32 bits.
+
+NO funciona en fedora debido a que esta familia de SO no
+trabaja con .deb sino rpm. No ha habido tiempo de realizar
+un script que se adaptara a la metodologia de empaquetado de
+Fedora.
+
+NO funciona en debian debido a que, ironicamente, el tutorial
+de empaquetado que hemos seguido para debian (desde la pagina
+de debian, no de ubuntu) utiliza una herramienta llamada dch
+que no parece estar disponible en debian. No ha habido tiempo
+de realizar una adaptación.
+
+El .deb generado ha sido probado en ubuntu 14.10 con exito. 
